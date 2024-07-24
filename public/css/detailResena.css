@@ -1,0 +1,125 @@
+/* detailProduct.css */
+
+/* Estilos generales */
+
+
+.product-details {
+    padding: 20px;
+    background-color: white;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    margin: 20px;
+    max-width: 800px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.product-details h1 {
+    font-size: 28px;
+    color: #003366; /* Azul cobalto */
+}
+
+.product-details img {
+    max-width: 100%;
+    border-radius: 8px;
+}
+
+.product-details .price {
+    font-size: 20px;
+    color: #ff6600; /* Naranja no brillante */
+}
+
+.product-details .description {
+    font-size: 16px;
+    color: #555;
+}
+
+.product-details form {
+    margin-top: 20px;
+}
+
+.product-details button {
+    background-color: #003366; /* Azul cobalto */
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+.product-details button:hover {
+    opacity: 0.8;
+}
+
+.reviews {
+    padding: 20px;
+    background-color: #ffffff;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    margin: 20px;
+    max-width: 800px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.reviews h2 {
+    font-size: 24px;
+    color: #003366; /* Azul cobalto */
+}
+
+.review {
+    margin-bottom: 20px;
+    border-bottom: 1px solid #ddd;
+    padding-bottom: 10px;
+}
+
+.review h3 {
+    font-size: 18px;
+    color: #003366; /* Azul cobalto */
+}
+
+.review p {
+    font-size: 16px;
+    color: #555;
+}
+
+a {
+    color: #003366; /* Azul cobalto */
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+/* Estilos para el enlace de agregar reseña como botón */
+.add-review-button {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: #ff6600; /* Naranja no brillante */
+    color: white;
+    border-radius: 5px;
+    text-decoration: none;
+    font-size: 16px;
+    text-align: center;
+}
+
+.add-review-button:hover {
+    background-color: #cc5200; /* Naranja más oscuro */
+}
+
+
+.star-rating {
+    font-size: 20px; /* Ajusta el tamaño según sea necesario */
+}
+
+.star-rating .fa-star {
+    color: gold; /* Color para estrellas llenas */
+}
+
+.star-rating .fa-star-o {
+    color: lightgray; /* Color para estrellas vacías */
+}

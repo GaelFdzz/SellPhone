@@ -1,0 +1,97 @@
+/* submitReview.css */
+
+/* Estilos generales */
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background-color: #f0f0f5;
+    color: #333;
+}
+
+h1 {
+    text-align: center;
+    color: #003366; /* Azul cobalto */
+    margin-top: 20px;
+}
+
+.product-details {
+    padding: 20px;
+    background-color: white;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    max-width: 800px;
+    margin: 20px auto;
+    text-align: center;
+}
+
+.product-details h2 {
+    font-size: 24px;
+    color: #003366; /* Azul cobalto */
+}
+
+.product-details img {
+    max-width: 100%;
+    border-radius: 8px;
+}
+
+.product-details .price {
+    font-size: 20px;
+    color: #ff6600; /* Naranja no brillante */
+}
+
+.product-details .description {
+    font-size: 16px;
+    color: #555;
+}
+
+form {
+    max-width: 800px;
+    margin: 20px auto;
+    padding: 20px;
+    background-color: white;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+form label {
+    display: block;
+    margin-bottom: 10px;
+    font-weight: bold;
+    color: #003366; /* Azul cobalto */
+}
+
+form input, form textarea, form select {
+    width: 100%;
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #ddd;
+    margin-bottom: 15px;
+}
+
+form button {
+    background-color: #003366; /* Azul cobalto */
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+form button:hover {
+    opacity: 0.8;
+}
+
+a {
+    display: block;
+    text-align: center;
+    margin: 20px auto;
+    color: #003366; /* Azul cobalto */
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+}

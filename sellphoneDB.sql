@@ -135,4 +135,3 @@ INSERT INTO roles (Nombre) VALUES ('Administrador');
 INSERT INTO roles (Nombre) VALUES ('Soporte');
 INSERT INTO roles (Nombre) VALUES ('Cliente');
 INSERT INTO roles (Nombre) VALUES ('Usuario');
-

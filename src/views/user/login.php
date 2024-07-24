@@ -13,6 +13,7 @@
             <form action="../../controllers/registerController.php" method="post">
                 <h1>Crear Cuenta</h1>
                 <input type="text" name="nombre" placeholder="Nombre" required>
+                <input type="text" name="apellido" placeholder="Apellido" required>
                 <input type="email" name="correo" placeholder="Email" required>
                 <input type="password" name="contrasena" placeholder="Contraseña" required>
                 <button type="submit">Registrarse</button>

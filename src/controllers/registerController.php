@@ -1,6 +1,6 @@
 <?php
 // Configuración de la base de datos
-include_once '../../../config/database.php';
+include '../config/database.php';
 
 // Verificar conexión
 if ($conexion->connect_error) {
@@ -9,11 +9,12 @@ if ($conexion->connect_error) {
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $nombre = $_POST["nombre"];
-    $email = $_POST["email"];
-    $password = password_hash($_POST["password"], PASSWORD_DEFAULT);
+    $email = $_POST["correo"];
+    $password = $_POST["contrasena"];
+    $apellido = $_POST["apellido"];
 
     // Verificar si el email ya está registrado
-    $sql = "SELECT id FROM Usuarios WHERE email = ?";
+    $sql = "SELECT id_usuario FROM Usuarios WHERE correo = ?";
     $stmt = $conexion->prepare($sql);
     $stmt->bind_param("s", $email);
     $stmt->execute();
@@ -23,9 +24,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         echo "El email ya está registrado.";
     } else {
         // Insertar nuevo usuario
-        $sql = "INSERT INTO Usuarios (nombre, email, password) VALUES (?, ?, ?)";
-        $stmt = $conn->prepare($sql);
-        $stmt->bind_param("sss", $nombre, $email, $password);
+        $sql = "INSERT INTO Usuarios (Nombre, Apellido, Correo, Contrasena, Id_Rol) VALUES (?, ?, ?, ?, 4)";
+        $stmt = $conexion->prepare($sql);
+        $stmt->bind_param("ssss", $nombre, $apellido, $email, $password);
 
         if ($stmt->execute()) {
             echo "Registro exitoso.";

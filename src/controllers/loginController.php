@@ -22,7 +22,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $stmt->fetch();
         if ($contrasena === $stored_password) {
             session_start();
-            $_SESSION['id_usuario'] = $id;
+            $_SESSION['Id_Usuario'] = $id;
             echo "Login exitoso.";
             header("Location: ../views/home/index.php");
             exit();
