@@ -16,9 +16,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     // Manejar la carga de la imagen
     $target_dir = "../../public/imagesUploaded/";
-    $target_file = $target_dir . basename($_FILES["imagen"]["name"]);
+    $imageFileType = strtolower(pathinfo($_FILES["imagen"]["name"], PATHINFO_EXTENSION));
+    $target_file = $target_dir . uniqid('', true) . '.' . $imageFileType; // Genera un nombre de archivo único
+
     $uploadOk = 1;
-    $imageFileType = strtolower(pathinfo($target_file, PATHINFO_EXTENSION));
 
     // Verificar si el archivo es una imagen real
     $check = getimagesize($_FILES["imagen"]["tmp_name"]);
@@ -26,12 +27,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $uploadOk = 1;
     } else {
         echo "El archivo no es una imagen.";
-        $uploadOk = 0;
-    }
-
-    // Verificar si el archivo ya existe
-    if (file_exists($target_file)) {
-        echo "Lo siento, el archivo ya existe.";
         $uploadOk = 0;
     }
 

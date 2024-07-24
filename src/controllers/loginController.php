@@ -1,36 +1,32 @@
 <?php
-include '../config/database.php';
+// Iniciar sesión
+session_start();
 
-// Verificar conexión
-if ($conexion->connect_error) {
-    die("Connection failed: " . $conexion->connect_error);
-}
+// Incluir la conexión a la base de datos
+include '../config/database.php';
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $correo = $_POST["correo"];
     $contrasena = $_POST["contrasena"];
 
-    // Obtener el usuario de la base de datos
-    $sql = "SELECT Id_Usuario, Contrasena FROM Usuarios WHERE Correo = ?";
+    // Consulta para verificar las credenciales del usuario
+    $sql = "SELECT Id_Usuario FROM Usuarios WHERE Correo = ? AND Contrasena = ?";
     $stmt = $conexion->prepare($sql);
-    $stmt->bind_param("s", $correo);
+    $stmt->bind_param("ss", $correo, $contrasena);
     $stmt->execute();
     $stmt->store_result();
-    $stmt->bind_result($id, $stored_password);
 
-    if ($stmt->num_rows > 0) {
+    if ($stmt->num_rows == 1) {
+        // Usuario y contraseña correctos
+        $stmt->bind_result($usuario_id);
         $stmt->fetch();
-        if ($contrasena === $stored_password) {
-            session_start();
-            $_SESSION['Id_Usuario'] = $id;
-            echo "Login exitoso.";
-            header("Location: ../views/home/index.php");
-            exit();
-        } else {
-            echo "Contraseña incorrecta.";
-        }
+        $_SESSION['usuario_id'] = $usuario_id; // Configurar la variable de sesión
+
+        // Redirigir al usuario a la página principal
+        header("Location: /src/views/home/index.php");
+        exit();
     } else {
-        echo "No se encontró una cuenta con ese correo.";
+        echo "Correo o contraseña incorrectos";
     }
     $stmt->close();
 }

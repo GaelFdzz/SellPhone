@@ -8,11 +8,12 @@ header {
     justify-content: space-between;
     align-items: center;
     padding: 20px;
-    background-color: #ffffff;
+    background-color: black;
     border-bottom: 1px solid #ddd;
 }
 
 .logo {
+    color: white;
     font-size: 24px;
     font-weight: bold;
 }
@@ -20,6 +21,20 @@ header {
 nav a {
     margin: 0 15px;
     text-decoration: none;
-    color: black;
+    color: rgb(255, 255, 255);
     font-weight: bold;
+}
+
+nav a:hover{
+    text-decoration: underline;
+}
+
+nav a.active {
+    color: black; /* Puedes cambiar esto a cualquier color que prefieras para resaltar el enlace activo */
+    text-decoration: none;
+    font-weight: bold;
+    padding: 10px;
+    border-radius: 5px;
+    margin-right: 10px; /* Puedes cambiar esto a cualquier valor que prefieras para mover el enlace activo a la derecha */
+    background-color: yellow;
 }

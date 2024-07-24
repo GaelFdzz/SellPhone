@@ -1,4 +1,14 @@
 <?php
+// Iniciar sesión
+session_start();
+
+// Verificar si el usuario ha iniciado sesión
+if (!isset($_SESSION['usuario_id'])) {
+    // Redirigir a la página de inicio de sesión si no ha iniciado sesión
+    header("Location: /src/views/user/login.php");
+    exit();
+}
+
 include '../../config/database.php';
 
 // Verificar conexión
@@ -53,6 +63,10 @@ $conexion->close();
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Agregar Reseña</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js" integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="../../../public/css/navbar.css">
     <link rel="stylesheet" href="../../../public/css/resena.css">
 </head>
 
@@ -63,7 +77,15 @@ $conexion->close();
             <a href="/src/views/home/index.php">Tienda</a>
             <a href="/src/views/home/soporteContacto.php">Contacto</a>
             <a href="#">Carrito</a>
-            <a href="#">Mi perfil</a>
+            <a href="#" class="dropdown-toggle" id="perfilDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">Mi perfil</a>
+            <ul class="dropdown-menu" aria-labelledby="perfilDropdown">
+                <li><a class="dropdown-item" href="#">Ver perfil</a></li>
+                <li><a class="dropdown-item" href="/src/views/user/settings.php">Configuraciones</a></li>
+                <li>
+                    <hr class="dropdown-divider">
+                </li>
+                <li><a class="dropdown-item" href="/src/controllers/logoutController.php">Cerrar sesión</a></li>
+            </ul>
         </nav>
     </header>
 
@@ -102,7 +124,11 @@ $conexion->close();
 
         <button type="submit">Enviar Reseña</button>
     </form>
-    <a href="detail.php?id=<?php echo $id_producto; ?>">Volver a los detalles del producto</a>
+    
+    <div class="back-to-review-container">
+        <a class="back-to-review" href="detail.php?id=<?php echo $id_producto; ?>">Volver a los detalles del producto</a>
+    </div>
+
 </body>
 
 </html>

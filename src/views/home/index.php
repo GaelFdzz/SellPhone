@@ -1,6 +1,18 @@
 <?php
+// Iniciar sesión
+session_start();
+
+// Verificar si el usuario ha iniciado sesión
+if (!isset($_SESSION['usuario_id'])) {
+    // Redirigir a la página de inicio de sesión si no ha iniciado sesión
+    header("Location: /src/views/user/login.php");
+    exit();
+}
+
 // Incluir la conexión a la base de datos
 include '../../config/database.php';
+
+$current_page = basename($_SERVER['REQUEST_URI'], ".php");
 
 // Consulta para obtener productos
 $sql = "SELECT Id_Producto, Nombre, Precio, Imagen FROM Productos";
@@ -18,17 +30,24 @@ $result = $conexion->query($sql);
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js" integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="../../../public/css/homePage.css">
     <link rel="stylesheet" href="../../../public/css/navbar.css">
-
 </head>
 
 <body>
     <header>
         <div class="logo">Sellphone</div>
         <nav>
-            <a href="/src/views/home/index.php">Tienda</a>
+            <a href="/src/views/home/index.php" class="<?php echo $current_page == 'index' ? 'active' : ''; ?>">Tienda</a>
             <a href="/src/views/home/soporteContacto.php">Contacto</a>
             <a href="#">Carrito</a>
-            <a href="#">Mi perfil</a>
+            <a href="#" class="dropdown-toggle" id="perfilDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">Mi perfil</a>
+            <ul class="dropdown-menu" aria-labelledby="perfilDropdown">
+                <li><a class="dropdown-item" href="#">Ver perfil</a></li>
+                <li><a class="dropdown-item" href="/src/views/user/settings.php">Configuraciones</a></li>
+                <li>
+                    <hr class="dropdown-divider">
+                </li>
+                <li><a class="dropdown-item" href="/src/controllers/logoutController.php">Cerrar sesión</a></li>
+            </ul>
         </nav>
     </header>
     <main>

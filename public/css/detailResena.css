@@ -2,6 +2,15 @@
 
 /* Estilos generales */
 
+body::-webkit-scrollbar {
+    width: 0px;
+    background: transparent; /* Opcional: sólo si quieres que el fondo sea transparente */
+}
+
+body{
+    overflow: auto;
+    background-color: #f0f0f5;
+}
 
 .product-details {
     padding: 20px;
@@ -21,7 +30,8 @@
 }
 
 .product-details img {
-    max-width: 100%;
+    max-width: 30%;
+    max-height: auto;
     border-radius: 8px;
 }
 

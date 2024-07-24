@@ -1,5 +1,12 @@
-/* homePage.css */
+/* Main */
+
+body::-webkit-scrollbar {
+    width: 0px;
+    background: transparent; /* Opcional: sólo si quieres que el fondo sea transparente */
+}
+
 body {
+    overflow: auto;
     margin: 0;
     font-family: Arial, sans-serif;
     background-color: #f0f0f5;
@@ -28,6 +35,9 @@ h1 {
     border-radius: 8px;
     padding: 20px;
     width: 250px; /* Tamaño fijo para las tarjetas */
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
     text-align: center;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Sombra para un mejor aspecto */
 }
@@ -73,12 +83,13 @@ button:hover {
     display: inline-block;
     margin-top: 10px;
     padding: 10px 20px;
-    background-color: #007bff;
+    background-color: #FFBE00;
     color: #fff;
     text-decoration: none;
     border-radius: 5px;
+    width: 100%; /* Para que todos los botones tengan el mismo ancho */
 }
 
 .details-button:hover {
-    background-color: #0056b3;
+    background-color: #987200;
 }

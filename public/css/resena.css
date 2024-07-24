@@ -1,7 +1,14 @@
 /* submitReview.css */
 
 /* Estilos generales */
+
+body::-webkit-scrollbar {
+    width: 0px;
+    background: transparent; /* Opcional: sólo si quieres que el fondo sea transparente */
+}
+
 body {
+    overflow: auto;
     margin: 0;
     font-family: Arial, sans-serif;
     background-color: #f0f0f5;
@@ -31,7 +38,8 @@ h1 {
 }
 
 .product-details img {
-    max-width: 100%;
+    max-width: 30%;
+    max-height: auto;
     border-radius: 8px;
 }
 
@@ -84,14 +92,25 @@ form button:hover {
     opacity: 0.8;
 }
 
-a {
-    display: block;
-    text-align: center;
+.back-to-review-container {
+    max-width: 800px;
     margin: 20px auto;
-    color: #003366; /* Azul cobalto */
-    text-decoration: none;
+    text-align: center;
 }
 
-a:hover {
-    text-decoration: underline;
+.back-to-review{
+    display: inline-block;
+    text-align: center;
+    margin-top: 20px;
+    padding: 10px 20px; /* Añadir relleno para que parezca un botón */
+    background-color: #003366; /* Color de fondo azul cobalto */
+    color: #ffffff; /* Color del texto blanco */
+    text-decoration: none; /* Quitar el subrayado */
+    border-radius: 5px; /* Bordes redondeados */
+    transition: background-color 0.3s ease; /* Transición suave para el hover */
+}
+
+.back-to-review:hover{
+    background-color: #0056b3; /* Color de fondo azul oscuro */
+    color: #ffffff; /* Color del texto blanco */
 }

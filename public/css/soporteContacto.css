@@ -1,4 +1,10 @@
+body::-webkit-scrollbar {
+    width: 0px;
+    background: transparent; /* Opcional: sólo si quieres que el fondo sea transparente */
+}
+
 body {
+    overflow: auto;
     font-family: Arial, sans-serif;
     background-color: #f1f1f1;
     color: #333;

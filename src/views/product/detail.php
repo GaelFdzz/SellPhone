@@ -1,4 +1,14 @@
 <?php
+// Iniciar sesión
+session_start();
+
+// Verificar si el usuario ha iniciado sesión
+if (!isset($_SESSION['usuario_id'])) {
+    // Redirigir a la página de inicio de sesión si no ha iniciado sesión
+    header("Location: /src/views/user/login.php");
+    exit();
+}
+
 include '../../config/database.php';
 
 // Verificar conexión
@@ -23,7 +33,7 @@ if ($id_producto > 0) {
     $stmt->close();
 
     // Obtener reseñas del producto
-    $sql = "SELECT Usuario, Comentario, Calificacion FROM Resenas WHERE Id_Producto = ?";
+    $sql = "SELECT Usuario, Comentario, Calificacion, Fecha FROM Resenas WHERE Id_Producto = ?";
     $stmt = $conexion->prepare($sql);
     $stmt->bind_param("i", $id_producto);
     $stmt->execute();
@@ -43,6 +53,9 @@ $conexion->close();
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Detalles del Producto</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js" integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="../../../public/css/detailResena.css">
     <link rel="stylesheet" href="../../../public/css/navbar.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
@@ -56,7 +69,15 @@ $conexion->close();
             <a href="/src/views/home/index.php">Tienda</a>
             <a href="/src/views/home/soporteContacto.php">Contacto</a>
             <a href="#">Carrito</a>
-            <a href="#">Mi perfil</a>
+            <a href="#" class="dropdown-toggle" id="perfilDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">Mi perfil</a>
+            <ul class="dropdown-menu" aria-labelledby="perfilDropdown">
+                <li><a class="dropdown-item" href="#">Ver perfil</a></li>
+                <li><a class="dropdown-item" href="/src/views/user/settings.php">Configuraciones</a></li>
+                <li>
+                    <hr class="dropdown-divider">
+                </li>
+                <li><a class="dropdown-item" href="/src/controllers/logoutController.php">Cerrar sesión</a></li>
+            </ul>
         </nav>
     </header>
 
@@ -81,6 +102,7 @@ $conexion->close();
             <?php while ($resena = $resenas->fetch_assoc()) : ?>
                 <div class="review">
                     <h3><?php echo htmlspecialchars($resena['Usuario']); ?></h3>
+                    <p class="review-date"><?php echo htmlspecialchars($resena['Fecha']); ?></p>
                     <p><?php echo htmlspecialchars($resena['Comentario']); ?></p>
                     <p class="star-rating">
                         <?php
