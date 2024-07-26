@@ -1,6 +1,19 @@
 <?php
 // Iniciar sesión
 session_start();
+include '../../config/database.php';
+// Obtener el ID del usuario de la sesión
+$usuario_id = $_SESSION['usuario_id'];
+
+// Consultar el rol del usuario
+$sql = "SELECT Id_Rol FROM Usuarios WHERE Id_Usuario = ?";
+$stmt = $conexion->prepare($sql);
+$stmt->bind_param("i", $usuario_id);
+$stmt->execute();
+$result = $stmt->get_result();
+$row = $result->fetch_assoc();
+
+$rol = $row['Id_Rol'];
 
 // Verificar si el usuario ha iniciado sesión
 if (!isset($_SESSION['usuario_id'])) {
@@ -69,10 +82,14 @@ $conexion->close();
             <a href="/src/views/home/index.php">Tienda</a>
             <a href="/src/views/home/soporteContacto.php">Contacto</a>
             <a href="#">Carrito</a>
+            <!-- Mostrar o no el enlace para el dashboard según el rol del usuario -->
+            <?php if ($rol === 1) : ?>
+                <a href="/src/views/product/register.php">Dashboard</a>
+            <?php endif; ?>
+            <!-- Menu dropdown para el usuario logueado -->
             <a href="#" class="dropdown-toggle" id="perfilDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">Mi perfil</a>
             <ul class="dropdown-menu" aria-labelledby="perfilDropdown">
                 <li><a class="dropdown-item" href="#">Ver perfil</a></li>
-                <li><a class="dropdown-item" href="/src/views/user/settings.php">Configuraciones</a></li>
                 <li>
                     <hr class="dropdown-divider">
                 </li>

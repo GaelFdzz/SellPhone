@@ -26,7 +26,7 @@ body{
 
 .product-details h1 {
     font-size: 28px;
-    color: #003366; /* Azul cobalto */
+    color: black;
 }
 
 .product-details img {
@@ -37,7 +37,7 @@ body{
 
 .product-details .price {
     font-size: 20px;
-    color: #ff6600; /* Naranja no brillante */
+    color: #5f5f5f;
 }
 
 .product-details .description {
@@ -50,17 +50,17 @@ body{
 }
 
 .product-details button {
-    background-color: #003366; /* Azul cobalto */
+    background-color: #FFBE00;
     color: white;
     border: none;
     padding: 10px 20px;
-    border-radius: 5px;
     cursor: pointer;
     font-size: 16px;
 }
 
 .product-details button:hover {
     opacity: 0.8;
+    color: black;
 }
 
 .reviews {
@@ -77,7 +77,7 @@ body{
 
 .reviews h2 {
     font-size: 24px;
-    color: #003366; /* Azul cobalto */
+    color: #003366;
 }
 
 .review {
@@ -88,7 +88,7 @@ body{
 
 .review h3 {
     font-size: 18px;
-    color: #003366; /* Azul cobalto */
+    color: #003366;
 }
 
 .review p {
@@ -96,40 +96,35 @@ body{
     color: #555;
 }
 
-a {
-    color: #003366; /* Azul cobalto */
-    text-decoration: none;
-}
 
 a:hover {
-    text-decoration: underline;
+    text-decoration: none;
 }
 
 /* Estilos para el enlace de agregar reseña como botón */
 .add-review-button {
     display: inline-block;
     padding: 10px 20px;
-    background-color: #ff6600; /* Naranja no brillante */
+    background-color: #003366;
     color: white;
-    border-radius: 5px;
     text-decoration: none;
     font-size: 16px;
     text-align: center;
 }
 
 .add-review-button:hover {
-    background-color: #cc5200; /* Naranja más oscuro */
+    opacity: 0.8;
 }
 
 
 .star-rating {
-    font-size: 20px; /* Ajusta el tamaño según sea necesario */
+    font-size: 20px;
 }
 
 .star-rating .fa-star {
-    color: gold; /* Color para estrellas llenas */
+    color: gold;
 }
 
 .star-rating .fa-star-o {
-    color: lightgray; /* Color para estrellas vacías */
+    color: #bababa;
 }

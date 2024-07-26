@@ -12,10 +12,28 @@ header {
     border-bottom: 1px solid #ddd;
 }
 
-.logo {
+header .sellphone {
     color: white;
     font-size: 24px;
     font-weight: bold;
+    flex-shrink: 0;
+    text-decoration: none;
+}
+
+button.btn.btn-primary {
+    background-color: #FFBE00;
+    color: white;
+    border: none;
+    cursor: pointer;
+}
+
+button.btn.btn-primary:hover {
+    opacity: 0.8;
+}
+
+nav {
+    display: flex;
+    align-items: center;
 }
 
 nav a {
@@ -25,16 +43,54 @@ nav a {
     font-weight: bold;
 }
 
-nav a:hover{
+nav a:hover {
     text-decoration: underline;
 }
 
 nav a.active {
-    color: black; /* Puedes cambiar esto a cualquier color que prefieras para resaltar el enlace activo */
+    color: black;
     text-decoration: none;
     font-weight: bold;
     padding: 10px;
-    border-radius: 5px;
-    margin-right: 10px; /* Puedes cambiar esto a cualquier valor que prefieras para mover el enlace activo a la derecha */
-    background-color: yellow;
+    margin-right: 10px;
+    background-color: white;
+}
+
+nav .dropdown-menu {
+    background-color: black;
+    border-color: white;
+}
+
+nav .dropdown-item {
+    color: white;
+}
+
+nav .dropdown-item:hover {
+    background-color: #ddd;
+    text-decoration: none;
+    width: 80%;
+}
+
+nav .dropdown-divider {
+    background-color: white;
+}
+
+.nav-center {
+    flex-grow: 1;
+    display: flex;
+    justify-content: center;
+}
+
+.search-form {
+    display: flex;
+    align-items: center;
+}
+
+.search-form input {
+    margin-right: 10px;
+    width: 20rem; /* Ajusta el tamaño del input de búsqueda aquí */
+}
+
+.search-form .dropdown {
+    margin-left: 0; /* Elimina cualquier margen izquierdo */
 }

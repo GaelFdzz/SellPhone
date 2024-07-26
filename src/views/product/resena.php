@@ -1,6 +1,7 @@
 <?php
 // Iniciar sesión
 session_start();
+include '../../config/database.php';
 
 // Verificar si el usuario ha iniciado sesión
 if (!isset($_SESSION['usuario_id'])) {
@@ -9,7 +10,18 @@ if (!isset($_SESSION['usuario_id'])) {
     exit();
 }
 
-include '../../config/database.php';
+// Obtener el ID del usuario de la sesión
+$usuario_id = $_SESSION['usuario_id'];
+
+// Consultar el rol del usuario
+$sql = "SELECT Id_Rol FROM Usuarios WHERE Id_Usuario = ?";
+$stmt = $conexion->prepare($sql);
+$stmt->bind_param("i", $usuario_id);
+$stmt->execute();
+$result = $stmt->get_result();
+$row = $result->fetch_assoc();
+
+$rol = $row['Id_Rol'];
 
 // Verificar conexión
 if ($conexion->connect_error) {
@@ -23,22 +35,40 @@ $nombre_producto = $descripcion_producto = $precio_producto = $imagen_producto =
 // Obtener el ID del producto de la URL
 $id_producto = isset($_GET['id']) ? intval($_GET['id']) : 0;
 
-if ($_SERVER['REQUEST_METHOD'] == 'POST' && $id_producto > 0) {
-    $usuario = $_POST['usuario'];
-    $comentario = $_POST['comentario'];
-    $calificacion = intval($_POST['calificacion']);
+$usuario_id = $_SESSION['usuario_id'];
 
-    if (!empty($usuario) && !empty($comentario) && $calificacion > 0 && $calificacion <= 5) {
-        $sql = "INSERT INTO Resenas (Id_Producto, Usuario, Comentario, Calificacion) VALUES (?, ?, ?, ?)";
-        $stmt = $conexion->prepare($sql);
-        $stmt->bind_param("isss", $id_producto, $usuario, $comentario, $calificacion);
-        $stmt->execute();
-        $stmt->close();
-        $mensaje = "Reseña agregada exitosamente.";
-        header("Location: detail.php?id=$id_producto"); // Redirigir a los detalles del producto
-        exit();
-    } else {
-        $mensaje = "Por favor, complete todos los campos correctamente.";
+// Verificar si el usuario ha comprado el producto
+$sql = "SELECT COUNT(*) as total 
+        FROM Detalle_Pedidos 
+        INNER JOIN Pedidos ON Detalle_Pedidos.Id_Pedido = Pedidos.Id_Pedido
+        WHERE Detalle_Pedidos.Id_Producto = ? AND Pedidos.Id_Usuario = ?";
+$stmt = $conexion->prepare($sql);
+$stmt->bind_param("ii", $id_producto, $usuario_id);
+$stmt->execute();
+$result = $stmt->get_result();
+$row = $result->fetch_assoc();
+
+if ($row['total'] == 0) {
+    $mensaje = 'Solo los clientes que han comprado este producto pueden dejar una reseña.';
+} else {
+    // Procesar la reseña si el usuario ha comprado el producto
+    if ($_SERVER['REQUEST_METHOD'] == 'POST' && $id_producto > 0) {
+        $usuario = $_POST['usuario'];
+        $comentario = $_POST['comentario'];
+        $calificacion = intval($_POST['calificacion']);
+
+        if (!empty($usuario) && !empty($comentario) && $calificacion > 0 && $calificacion <= 5) {
+            $sql = "INSERT INTO Resenas (Id_Producto, Usuario, Comentario, Calificacion) VALUES (?, ?, ?, ?)";
+            $stmt = $conexion->prepare($sql);
+            $stmt->bind_param("isss", $id_producto, $usuario, $comentario, $calificacion);
+            $stmt->execute();
+            $stmt->close();
+            $mensaje = "Reseña agregada exitosamente.";
+            header("Location: detail.php?id=$id_producto"); // Redirigir a los detalles del producto
+            exit();
+        } else {
+            $mensaje = "Por favor, complete todos los campos correctamente.";
+        }
     }
 }
 
@@ -77,10 +107,14 @@ $conexion->close();
             <a href="/src/views/home/index.php">Tienda</a>
             <a href="/src/views/home/soporteContacto.php">Contacto</a>
             <a href="#">Carrito</a>
+            <!-- Mostrar o no el enlace para el dashboard según el rol del usuario -->
+            <?php if ($rol === 1) : ?>
+                <a href="/src/views/product/register.php">Dashboard</a>
+            <?php endif; ?>
+            <!-- Menu dropdown para el usuario logueado -->
             <a href="#" class="dropdown-toggle" id="perfilDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">Mi perfil</a>
             <ul class="dropdown-menu" aria-labelledby="perfilDropdown">
                 <li><a class="dropdown-item" href="#">Ver perfil</a></li>
-                <li><a class="dropdown-item" href="/src/views/user/settings.php">Configuraciones</a></li>
                 <li>
                     <hr class="dropdown-divider">
                 </li>
@@ -92,7 +126,7 @@ $conexion->close();
     <h1>Agregar Reseña</h1>
 
     <?php if (!empty($mensaje)) : ?>
-        <p><?php echo htmlspecialchars($mensaje); ?></p>
+        <p class="mensaje-advertencia"><?php echo htmlspecialchars($mensaje); ?></p>
     <?php endif; ?>
 
     <!-- Mostrar detalles del producto -->
@@ -102,6 +136,7 @@ $conexion->close();
         <p class="description"><?php echo nl2br(htmlspecialchars($descripcion_producto ?? 'Descripción no disponible')); ?></p>
     </div>
 
+    <?php if ($row['total'] > 0): ?>
     <!-- Formulario para agregar una reseña -->
     <form action="" method="post">
         <input type="hidden" name="id_producto" value="<?php echo $id_producto; ?>">
@@ -124,6 +159,7 @@ $conexion->close();
 
         <button type="submit">Enviar Reseña</button>
     </form>
+    <?php endif; ?>
     
     <div class="back-to-review-container">
         <a class="back-to-review" href="detail.php?id=<?php echo $id_producto; ?>">Volver a los detalles del producto</a>

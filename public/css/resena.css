@@ -17,7 +17,7 @@ body {
 
 h1 {
     text-align: center;
-    color: #003366; /* Azul cobalto */
+    color: black;
     margin-top: 20px;
 }
 
@@ -34,18 +34,13 @@ h1 {
 
 .product-details h2 {
     font-size: 24px;
-    color: #003366; /* Azul cobalto */
+    color: black;
 }
 
 .product-details img {
     max-width: 30%;
     max-height: auto;
     border-radius: 8px;
-}
-
-.product-details .price {
-    font-size: 20px;
-    color: #ff6600; /* Naranja no brillante */
 }
 
 .product-details .description {
@@ -67,29 +62,28 @@ form label {
     display: block;
     margin-bottom: 10px;
     font-weight: bold;
-    color: #003366; /* Azul cobalto */
+    color: black; 
 }
 
 form input, form textarea, form select {
     width: 100%;
     padding: 10px;
-    border-radius: 5px;
     border: 1px solid #ddd;
     margin-bottom: 15px;
 }
 
 form button {
-    background-color: #003366; /* Azul cobalto */
+    background-color: #FFBE00; 
     color: white;
     border: none;
     padding: 10px 20px;
-    border-radius: 5px;
     cursor: pointer;
     font-size: 16px;
 }
 
 form button:hover {
     opacity: 0.8;
+    color: black;
 }
 
 .back-to-review-container {
@@ -102,15 +96,25 @@ form button:hover {
     display: inline-block;
     text-align: center;
     margin-top: 20px;
-    padding: 10px 20px; /* Añadir relleno para que parezca un botón */
-    background-color: #003366; /* Color de fondo azul cobalto */
-    color: #ffffff; /* Color del texto blanco */
-    text-decoration: none; /* Quitar el subrayado */
-    border-radius: 5px; /* Bordes redondeados */
-    transition: background-color 0.3s ease; /* Transición suave para el hover */
+    padding: 10px 20px; 
+    background-color: #003366; 
+    color: white;
+    text-decoration: none; 
+    transition: background-color 0.3s ease; 
 }
 
 .back-to-review:hover{
-    background-color: #0056b3; /* Color de fondo azul oscuro */
-    color: #ffffff; /* Color del texto blanco */
+    opacity: 0.8;
 }
+
+.mensaje-advertencia {
+    text-align: center;
+    color: red;
+    font-weight: bold;
+    background-color: #f8d7da; /* Color de fondo claro para destacar el mensaje */
+    border: 1px solid #f5c6cb; /* Borde de color rojo claro */
+    border-radius: 5px;
+    padding: 10px;
+    margin-bottom: 20px;
+}
+
