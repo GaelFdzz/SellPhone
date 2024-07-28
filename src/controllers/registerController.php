@@ -24,12 +24,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         echo "El email ya está registrado.";
     } else {
         // Insertar nuevo usuario
-        $sql = "INSERT INTO Usuarios (Nombre, Apellido, Correo, Contrasena, Id_Rol) VALUES (?, ?, ?, ?, 4)";
+        $sql = "INSERT INTO Usuarios (Nombre, Apellido, Correo, Contrasena, Id_Rol) VALUES (?, ?, ?, ?, 3)";
         $stmt = $conexion->prepare($sql);
         $stmt->bind_param("ssss", $nombre, $apellido, $email, $password);
 
         if ($stmt->execute()) {
             echo "Registro exitoso.";
+            header('location: /src/views/user/login.php');
         } else {
             echo "Error: " . $sql . "<br>" . $conn->error;
         }

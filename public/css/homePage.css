@@ -30,17 +30,17 @@ h1 {
 }
 
 .card {
-    background-color: white; /* Fondo oscuro para la tarjeta */
-    color: black; /* Texto blanco */
+    background-color: white;
+    color: black;
     border: 1px solid #ddd;
     border-radius: 8px;
     padding: 20px;
     width: 250px; /* Tamaño fijo para las tarjetas */
     display: flex;
     flex-direction: column;
-    align-items: center; /* Centrar contenido horizontalmente */
+    align-items: center;
     text-align: center;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Sombra para un mejor aspecto */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     height: 100%; /* Asegura que todas las tarjetas tengan la misma altura */
 }
 
@@ -49,7 +49,6 @@ h1 {
     height: 200px; /* Altura específica para la imagen */
     object-fit: scale-down;
     margin-bottom: 10px;
-    border-radius: 4px; /* Bordes redondeados para la imagen */
 }
 
 .card .card-content {
@@ -70,6 +69,34 @@ h1 {
     margin: 10px 0;
 }
 
+
+/* Responsive */
+
+@media only screen and (max-width: 1024px) {
+   .product-grid {
+        flex-direction: column;
+    }
+   .card {
+        width: 100%;
+        margin-bottom: 20px;
+    }
+}
+
+@media only screen and (max-width: 768px) {
+   .product-grid {
+        flex-direction: column;
+    }
+   .card {
+        width: 100%;
+        margin-bottom: 20px;
+    }
+    .card img {
+        height: auto;
+        max-width: 100%;
+    }
+    
+}
+
 button {
     background-color: black;
     color: white;
@@ -77,6 +104,14 @@ button {
     padding: 10px 20px;
     border-radius: 5px;
     cursor: pointer;
+}
+
+/* Fuera de Stock */
+.cart-button.disabled{
+    background-color: gray;
+    color: white;
+    cursor: not-allowed;
+    border-radius: 0;
 }
 
 button:first-of-type {
@@ -87,6 +122,7 @@ button:first-of-type {
 button:hover {
     opacity: 0.8;
 }
+
 
 .details-button {
     display: inline-block;

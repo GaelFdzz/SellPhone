@@ -43,19 +43,21 @@ $current_page = basename($_SERVER['REQUEST_URI'], ".php");
 
 <body>
     <header>
-        <div class="logo">Sellphone</div>
+        <div class="logo">
+            <a href="" class="sellphone">SellPhone</a>
+        </div>
         <nav>
             <a href="/src/views/home/index.php">Tienda</a>
             <a href="/src/views/home/index.php" class="<?php echo $current_page == 'soporteContacto' ? 'active' : ''; ?>">Contacto</a>
-            <a href="#">Carrito</a>
+            <a href="/src/views/order/cart.php">Carrito</a>
             <!-- Mostrar o no el enlace para el dashboard según el rol del usuario -->
             <?php if ($rol === 1) : ?>
-                <a href="/src/views/product/register.php">Dashboard</a>
+                <a href="/src/views/product/crud.php">Dashboard</a>
             <?php endif; ?>
             <!-- Menu dropdown para el usuario logueado -->
             <a href="#" class="dropdown-toggle" id="perfilDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">Mi perfil</a>
             <ul class="dropdown-menu" aria-labelledby="perfilDropdown">
-                <li><a class="dropdown-item" href="#">Ver perfil</a></li>
+                <li><a class="dropdown-item" href="/src/views/user/profile.php">Ver perfil</a></li>
                 <li>
                     <hr class="dropdown-divider">
                 </li>

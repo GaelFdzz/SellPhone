@@ -37,11 +37,11 @@ $id_producto = isset($_GET['id']) ? intval($_GET['id']) : 0;
 
 if ($id_producto > 0) {
     // Obtener detalles del producto
-    $sql = "SELECT Nombre, Descripcion, Precio, Imagen FROM Productos WHERE Id_Producto = ?";
+    $sql = "SELECT Nombre, Descripcion, Precio, Stock, Imagen FROM Productos WHERE Id_Producto = ?";
     $stmt = $conexion->prepare($sql);
     $stmt->bind_param("i", $id_producto);
     $stmt->execute();
-    $stmt->bind_result($nombre, $descripcion, $precio, $imagen);
+    $stmt->bind_result($nombre, $descripcion, $precio, $stock, $imagen);
     $stmt->fetch();
     $stmt->close();
 
@@ -77,19 +77,21 @@ $conexion->close();
 <body>
     <!-- Barra de navegación -->
     <header>
-        <div class="logo">Sellphone</div>
+        <div class="logo">
+            <a href="" class="sellphone">SellPhone</a>
+        </div>
         <nav>
             <a href="/src/views/home/index.php">Tienda</a>
             <a href="/src/views/home/soporteContacto.php">Contacto</a>
             <a href="#">Carrito</a>
             <!-- Mostrar o no el enlace para el dashboard según el rol del usuario -->
             <?php if ($rol === 1) : ?>
-                <a href="/src/views/product/register.php">Dashboard</a>
+                <a href="/src/views/product/crud.php">Dashboard</a>
             <?php endif; ?>
             <!-- Menu dropdown para el usuario logueado -->
             <a href="#" class="dropdown-toggle" id="perfilDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">Mi perfil</a>
             <ul class="dropdown-menu" aria-labelledby="perfilDropdown">
-                <li><a class="dropdown-item" href="#">Ver perfil</a></li>
+                <li><a class="dropdown-item" href="/src/views/user/profile.php">Ver perfil</a></li>
                 <li>
                     <hr class="dropdown-divider">
                 </li>
@@ -101,15 +103,25 @@ $conexion->close();
     <!-- Detalles del producto -->
     <div class="product-details">
         <h1><?php echo htmlspecialchars($nombre ?? 'Producto desconocido'); ?></h1>
-        <img src="../../../public/images/<?php echo htmlspecialchars($imagen ?? 'default.jpg'); ?>" alt="<?php echo htmlspecialchars($nombre ?? 'Producto desconocido'); ?>">
+        <img src="<?php echo htmlspecialchars($imagen ?? 'default.jpg'); ?>" alt="<?php echo htmlspecialchars($nombre ?? 'Producto desconocido'); ?>">
         <p class="price">Precio: $<?php echo number_format($precio ?? 0, 2); ?></p>
+        <?php
+        if ($stock > 0) {
+            echo '<p class="stock">Stock: ' . htmlspecialchars($stock) . '</p>';
+        } else {
+            echo '<p class="stock out-of-stock">'. 'Stock: ' . htmlspecialchars($stock) .'</p>';
+        }
+        ?>
         <p class="description"><?php echo nl2br(htmlspecialchars($descripcion ?? 'Descripción no disponible')); ?></p>
 
         <!-- Agregar al carrito -->
-        <form action="addToCart.php" method="post">
-            <input type="hidden" name="id_producto" value="<?php echo $id_producto; ?>">
-            <button type="submit">Agregar al Carrito</button>
-        </form>
+        <?php
+        if ($stock > 0) {
+            echo '<a href="../../controllers/cartController.php?producto_id=' . $id_producto . '" class="cart-button">Agregar al carrito</a>';
+        } else {
+            echo '<button class="cart-button disabled" disabled>Agotado</button>';
+        }
+        ?>
     </div>
 
     <!-- Sección de Reseñas -->

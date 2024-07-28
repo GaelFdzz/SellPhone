@@ -30,7 +30,7 @@ if (!isset($_SESSION['usuario_id'])) {
     </header>
     <main>
         <h1>Registrar Producto</h1>
-        <form action="../../controllers/productController.php" method="post" enctype="multipart/form-data">
+        <form action="/src/controllers/crud/productRegisterController.php" method="post" enctype="multipart/form-data">
             <label for="nombre">Nombre del Producto:</label>
             <input type="text" id="nombre" name="nombre" required>
             

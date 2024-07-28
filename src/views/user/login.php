@@ -38,6 +38,7 @@
                 <div class="overlay-panel overlay-right">
                     <h1>Bienvenido de nuevo!</h1>
                     <p>Ingrese sus correo y contraseña para acceder a la plataforma</p>
+                    <p>ó</p>
                     <button class="ghost" id="signUp">Registrarse</button>
                 </div>
             </div>

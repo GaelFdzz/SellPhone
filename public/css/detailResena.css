@@ -32,7 +32,6 @@ body{
 .product-details img {
     max-width: 30%;
     max-height: auto;
-    border-radius: 8px;
 }
 
 .product-details .price {
@@ -49,13 +48,26 @@ body{
     margin-top: 20px;
 }
 
-.product-details button {
-    background-color: #FFBE00;
-    color: white;
-    border: none;
+.cart-button{
+    display: inline-block;
+    margin-top: 10px;
     padding: 10px 20px;
-    cursor: pointer;
-    font-size: 16px;
+    background-color: #FFBE00;
+    color: #fff;
+    text-decoration: none;
+    width: 100%;
+    text-align: center; /* Centrar el texto dentro del botón */
+}
+
+.cart-button.disabled{
+    background-color: red;
+    cursor: not-allowed;
+    color: white;
+    text-decoration: none;
+}
+
+.cart-button:hover{
+    opacity: 0.8;
 }
 
 .product-details button:hover {
@@ -101,7 +113,7 @@ a:hover {
     text-decoration: none;
 }
 
-/* Estilos para el enlace de agregar reseña como botón */
+/* Estilos para el enlace de agregar reseña */
 .add-review-button {
     display: inline-block;
     padding: 10px 20px;
@@ -127,4 +139,14 @@ a:hover {
 
 .star-rating .fa-star-o {
     color: #bababa;
+}
+
+.stock{
+    font-size: 18px;
+    color: green;
+    font-weight: bold;
+}
+
+.stock.out-of-stock{
+    color: red;
 }

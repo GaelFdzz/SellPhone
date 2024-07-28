@@ -32,8 +32,8 @@ $search = isset($_GET['search']) ? $_GET['search'] : '';
 $min_price = isset($_GET['min_price']) ? $_GET['min_price'] : '';
 $max_price = isset($_GET['max_price']) ? $_GET['max_price'] : '';
 
-// Construir la consulta SQL con búsqueda y filtros
-$sql = "SELECT Id_Producto, Nombre, Precio, Imagen FROM Productos WHERE 1=1";
+// Consulta SQL con búsqueda y filtros
+$sql = "SELECT Id_Producto, Nombre, Precio, Stock, Imagen FROM Productos WHERE 1=1";
 
 if ($search) {
     $sql .= " AND Nombre LIKE ?";
@@ -82,9 +82,9 @@ $result = $stmt->get_result();
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>SellPhone</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js" integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy" crossorigin="anonymous"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js"></script>
     <link rel="stylesheet" href="../../../public/css/homePage.css">
     <link rel="stylesheet" href="../../../public/css/navbar.css">
 </head>
@@ -94,43 +94,39 @@ $result = $stmt->get_result();
             <a href="" class="sellphone">SellPhone</a>
         </div>
         <div class="nav-center">
-                <form class="search-form" method="GET" action="">
-                    <input type="text" class="form-control" name="search" placeholder="Buscar" value="<?php echo htmlspecialchars($search); ?>">
-                    <div class="dropdown">
-                        <button class="btn btn-secondary dropdown-toggle" type="button" id="filterDropdown" data-bs-toggle="dropdown" aria-expanded="false">
-                            Más Filtros
-                        </button>
-                        <ul class="dropdown-menu" aria-labelledby="filterDropdown">
-                            <li class="px-4 py-3">
-                                <div class="mb-3">
-                                    <label for="min_price" class="form-label">Precio mínimo</label>
-                                    <input type="number" step="0.01" class="form-control" id="min_price" name="min_price" placeholder="Precio mínimo" value="<?php echo htmlspecialchars($min_price); ?>">
-                                </div>
-                                <div class="mb-3">
-                                    <label for="max_price" class="form-label">Precio máximo</label>
-                                    <input type="number" step="0.01" class="form-control" id="max_price" name="max_price" placeholder="Precio máximo" value="<?php echo htmlspecialchars($max_price); ?>">
-                                </div>
-                                <button type="submit" class="btn btn-primary">Filtrar</button>
-                            </li>
-                        </ul>
-                    </div>
-                </form>
-            </div>
+            <form class="search-form" method="GET" action="">
+                <input type="text" class="form-control" name="search" placeholder="Buscar" value="<?php echo htmlspecialchars($search); ?>">
+                <div class="dropdown">
+                    <button class="btn btn-secondary dropdown-toggle" type="button" id="filterDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                        Más Filtros
+                    </button>
+                    <ul class="dropdown-menu" aria-labelledby="filterDropdown">
+                        <li class="px-4 py-3">
+                            <div class="mb-3">
+                                <label for="min_price" class="form-label">Precio mínimo</label>
+                                <input type="number" step="0.01" class="form-control" id="min_price" name="min_price" placeholder="Precio mínimo" value="<?php echo htmlspecialchars($min_price); ?>">
+                            </div>
+                            <div class="mb-3">
+                                <label for="max_price" class="form-label">Precio máximo</label>
+                                <input type="number" step="0.01" class="form-control" id="max_price" name="max_price" placeholder="Precio máximo" value="<?php echo htmlspecialchars($max_price); ?>">
+                            </div>
+                            <button type="submit" class="filter-button">Filtrar</button>
+                        </li>
+                    </ul>
+                </div>
+            </form>
+        </div>
         <nav>
             <a href="/src/views/home/index.php" class="<?php echo $current_page == 'index' ? 'active' : ''; ?>">Tienda</a>
             <a href="/src/views/home/soporteContacto.php">Contacto</a>
-            <a href="#">Carrito</a>
-            <!-- Mostrar o no el enlace para el dashboard según el rol del usuario -->
+            <a href="/src/views/order/cart.php">Carrito</a>
             <?php if ($rol === 1) : ?>
-                <a href="/src/views/product/register.php">Dashboard</a>
+                <a href="/src/views/product/crud.php">Dashboard</a>
             <?php endif; ?>
-            <!-- Menu dropdown para el usuario logueado -->
             <a href="#" class="dropdown-toggle" id="perfilDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">Mi perfil</a>
             <ul class="dropdown-menu" aria-labelledby="perfilDropdown">
-                <li><a class="dropdown-item" href="#">Ver perfil</a></li>
-                <li>
-                    <hr class="dropdown-divider">
-                </li>
+                <li><a class="dropdown-item" href="../user/profile.php">Ver perfil</a></li>
+                <li><hr class="dropdown-divider"></li>
                 <li><a class="dropdown-item" href="/src/controllers/logoutController.php">Cerrar sesión</a></li>
             </ul>
         </nav>
@@ -142,11 +138,15 @@ $result = $stmt->get_result();
             if ($result->num_rows > 0) {
                 while ($row = $result->fetch_assoc()) {
                     echo '<div class="card">';
-                    $imagen = htmlspecialchars(!empty($row["Imagen"]) ? $row["Imagen"] : '../../../public/imagesUploaded/default.png');
-                    echo '<img src="../' . $imagen . '">';
+                    $imagen = htmlspecialchars(!empty($row["Imagen"]) ? $row["Imagen"] : '../../public/imagesUploaded/default.png');
+                    echo '<img src="' . $imagen . '">';
                     echo '<h2>' . htmlspecialchars($row["Nombre"]) . '</h2>';
                     echo '<p>$' . number_format($row["Precio"], 2) . ' MXN' . '</p>';
-                    echo '<a href="../order/cart.php" class="cart-button">Agregar al carrito</a>';
+                    if ($row["Stock"] > 0) {
+                        echo '<a href="../../controllers/cartController.php?producto_id=' . $row["Id_Producto"] . '" class="cart-button">Agregar al carrito</a>';
+                    } else {
+                        echo '<button class="cart-button disabled" disabled>Agotado</button>';
+                    }
                     echo '<a href="../product/detail.php?id=' . $row["Id_Producto"] . '" class="details-button">Ver Detalles</a>';
                     echo '</div>';
                 }
