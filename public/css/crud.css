@@ -1,0 +1,13 @@
+
+main a {
+    text-decoration: none;
+    color: white;
+    text-align: center;
+    align-items: flex-start;
+    background-color: #FFBE00;
+    padding: 14px 20px;
+}
+
+main a:hover {
+    opacity: 0.8;
+}

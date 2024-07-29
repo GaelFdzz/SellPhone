@@ -37,6 +37,10 @@ $sql = "
     GROUP BY p.Id_Producto
     ";
 $result = $conexion->query($sql);
+
+// Consultar todos los mensajes
+$sql_mensajes = "SELECT Id_Mensaje, Nombre, Correo_Electronico, Asunto, Mensaje, Fecha_Recibido FROM Mensajes ORDER BY Fecha_Recibido DESC";
+$result_mensajes = $conexion->query($sql_mensajes);
 ?>
 <!DOCTYPE html>
 <html lang="es">
@@ -49,6 +53,7 @@ $result = $conexion->query($sql);
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js"></script>
     <link rel="stylesheet" href="/public/css/navbar.css">
+    <link rel="stylesheet" href="/public/css/crud.css">
     <script>
         function confirmarEliminacion(id) {
             if (confirm('¿Estás seguro de que deseas eliminar este producto?')) {
@@ -112,6 +117,41 @@ $result = $conexion->query($sql);
                 <?php endwhile; ?>
             </tbody>
         </table>
+
+        <h1>Mensajes Recibidos</h1>
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Nombre</th>
+                    <th>Correo</th>
+                    <th>Asunto</th>
+                    <th>Mensaje</th>
+                    <th>Fecha de Envío</th>
+                </tr>
+            </thead>
+            <tbody>
+                <?php while ($mensaje = $result_mensajes->fetch_assoc()) : ?>
+                    <tr>
+                        <td><?php echo htmlspecialchars($mensaje['Nombre']); ?></td>
+                        <td><?php echo htmlspecialchars($mensaje['Correo_Electronico']); ?></td>
+                        <td><?php echo htmlspecialchars($mensaje['Asunto']); ?></td>
+                        <td><?php echo htmlspecialchars($mensaje['Mensaje']); ?></td>
+                        <td><?php echo htmlspecialchars($mensaje['Fecha_Recibido']); ?></td>
+                        <td>
+                            <button onclick="confirmarEliminacionMensaje(<?php echo $mensaje['Id_Mensaje']; ?>)">Eliminar</button>
+                        </td>
+                    </tr>
+                <?php endwhile; ?>
+            </tbody>
+        </table>
+
+        <script>
+            function confirmarEliminacionMensaje(id) {
+                if (confirm('¿Estás seguro de que deseas eliminar este mensaje?')) {
+                    window.location.href = '/src/controllers/crud/deleteMessageController.php?action=delete&id=' + id;
+                }
+            }
+        </script>
     </main>
 </body>
 

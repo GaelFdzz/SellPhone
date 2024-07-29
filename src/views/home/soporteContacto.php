@@ -33,7 +33,7 @@ $current_page = basename($_SERVER['REQUEST_URI'], ".php");
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sellphone - Contacto</title>
+    <title>Sellphone</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js" integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy" crossorigin="anonymous"></script>
@@ -73,6 +73,43 @@ $current_page = basename($_SERVER['REQUEST_URI'], ".php");
             <p>Teléfono: 9985396831</p>
             <p>Ubicación: Cancún Q.Roo, Benito Juárez</p>
         </section>
+
+        <section id="about">
+            <form action="/src/controllers/supportContact.php" method="post">
+                <h2>Envíanos un mensaje</h2>
+                <p>Llena este formulario para contactarnos y resolver cualquier problema o consulta de manera más especifica.</p>
+                <?php
+                if (isset($_SESSION['mensaje_exito'])) {
+                    echo '<div class="alert alert-success">' . $_SESSION['mensaje_exito'] . '</div>';
+                    unset($_SESSION['mensaje_exito']);
+                }
+                if (isset($_SESSION['mensaje_error'])) {
+                    echo '<div class="alert alert-danger">' . $_SESSION['mensaje_error'] . '</div>';
+                    unset($_SESSION['mensaje_error']);
+                }
+                ?>
+
+                <div class="mb-3">
+                    <label for="name" class="form-label">Nombre</label>
+                    <input type="text" class="form-control" id="name" name="name" required>
+                </div>
+                <div class="mb-3">
+                    <label for="email" class="form-label">Correo electrónico</label>
+                    <input type="email" class="form-control" id="email" name="email" required>
+                </div>
+                <div class="mb-3">
+                    <label for="subject" class="form-label">Asunto</label>
+                    <input type="text" class="form-control" id="subject" name="subject" required>
+                </div>
+                <div class="mb-3">
+                    <label for="message" class="form-label">Mensaje</label>
+                    <textarea class="form-control" id="message" name="message" required></textarea>
+                    <small id="messageHelp" class="form-text text-muted">No compartiremos tu correo electrónico con nadie más.</small>
+                </div>
+                <button type="submit" class="submitButton">Enviar</button>
+            </form>
+        </section>
+
         <section id="about">
             <h2>Acerca de la empresa</h2>
             <p>Sellphone es una empresa dedicada a la venta de equipos electrónicos. Nos esforzamos por ofrecer productos de calidad a precios accesibles y un excelente servicio al cliente. Nuestro equipo está compuesto por estudiantes universitarios comprometidos con brindarte la mejor atención y asistencia en todas tus compras.</p>

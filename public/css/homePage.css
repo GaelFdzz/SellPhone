@@ -2,7 +2,7 @@
 
 body::-webkit-scrollbar {
     width: 0px;
-    background: transparent; /* Opcional: sólo si quieres que el fondo sea transparente */
+    background: transparent;
 }
 
 body {
