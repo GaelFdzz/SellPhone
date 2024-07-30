@@ -134,7 +134,7 @@ $conexion->close();
     <!-- Mostrar detalles del producto -->
     <div class="product-details">
         <h2><?php echo htmlspecialchars($nombre_producto ?? 'Nombre del producto'); ?></h2>
-        <img src="../../../public/images/<?php echo htmlspecialchars($imagen_producto ?? 'default.jpg'); ?>" alt="<?php echo htmlspecialchars($nombre_producto ?? 'Nombre del producto'); ?>">
+        <img src="<?php echo htmlspecialchars($imagen_producto ?? 'default.jpg'); ?>" alt="<?php echo htmlspecialchars($nombre_producto ?? 'Nombre del producto'); ?>">
         <p class="description"><?php echo nl2br(htmlspecialchars($descripcion_producto ?? 'Descripción no disponible')); ?></p>
     </div>
 

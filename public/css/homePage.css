@@ -1,5 +1,7 @@
 /* Main */
 
+
+/* El webkit-scrollbar es un elemento del motor de renderizado Webkit que apunta al scrollbar  */
 body::-webkit-scrollbar {
     width: 0px;
     background: transparent;
@@ -41,7 +43,7 @@ h1 {
     align-items: center;
     text-align: center;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    height: 100%; /* Asegura que todas las tarjetas tengan la misma altura */
+    height: 100%; /* las tarjetas tengan la misma altura */
 }
 
 .card img {
@@ -132,7 +134,7 @@ button:hover {
     color: #fff;
     text-decoration: none;
     width: 100%;
-    text-align: center; /* Centrar el texto dentro del botón */
+    text-align: center;
 }
 
 .details-button:hover {

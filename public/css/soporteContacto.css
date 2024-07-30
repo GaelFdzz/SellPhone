@@ -50,6 +50,8 @@ p {
     margin-bottom: 10px;
 }
 
+
+/* Selecciona los elementos con atributos de "ID" especificos */
 #contact {
     max-width: 600px;
     margin: 0 auto;

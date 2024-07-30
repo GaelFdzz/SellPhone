@@ -37,7 +37,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         }
 
         // Manejar la carga de la nueva imagen
-        $target_dir = realpath(__DIR__ . '/../../public/imagesUploaded/') . '/';
+        $target_dir = realpath(__DIR__ . '/../../../public/imagesUploaded/') . '/';
+        
         $imageFileType = strtolower(pathinfo($_FILES["imagen"]["name"], PATHINFO_EXTENSION));
         $target_file = $target_dir . uniqid('', true) . '.' . $imageFileType;
 

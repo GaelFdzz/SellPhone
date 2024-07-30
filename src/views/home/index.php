@@ -15,6 +15,8 @@ if (!isset($_SESSION['usuario_id'])) {
 $usuario_id = $_SESSION['usuario_id'];
 
 // Consultar el rol del usuario
+// el valor dentro del query "?" es reemplazado con el valor de $usuario_id
+// "?" es un marcador de posicion para un valor que se pasará más adelante
 $sql = "SELECT Id_Rol FROM Usuarios WHERE Id_Usuario = ?";
 $stmt = $conexion->prepare($sql);
 $stmt->bind_param("i", $usuario_id);
@@ -33,6 +35,8 @@ $min_price = isset($_GET['min_price']) ? $_GET['min_price'] : '';
 $max_price = isset($_GET['max_price']) ? $_GET['max_price'] : '';
 
 // Consulta SQL con búsqueda y filtros
+// "WHERE 1=1" se refiere a que siempre se cumple la condición
+// permite añadir AND sin preocuparse en si es la primer condicion o no
 $sql = "SELECT Id_Producto, Nombre, Precio, Stock, Imagen FROM Productos WHERE 1=1";
 
 if ($search) {
@@ -49,12 +53,17 @@ if ($max_price) {
 
 $stmt = $conexion->prepare($sql);
 
-// Vincular parámetros dinámicamente
+// Vincular parámetros
 $params = [];
 $types = '';
 
+// Dentro de los valores en la variable $types se almacenan los tipos de datos de cada parámetro
+// s (string) para cadenas, i (integer) para enteros, d (double) para números decimales
 if ($search) {
     $types .= 's';
+
+    //Cualquier cadena que tenga el valor de $search 
+    // Ejemplo: $search = 'Iphone', entonces %Iphone% significa que el nombre del producto contiene 'Iphone'
     $params[] = '%' . $search . '%';
 }
 
@@ -69,6 +78,9 @@ if ($max_price) {
 }
 
 if ($params) {
+    //Ejemplo, si $types es 'sdd', significa que hay tres parametros
+    // $params son los valores que se pasarán a la consulta con los parámetros de la consulta
+    // $stmt->bind_param('sdd', %iphone%, 4500, 12000);
     $stmt->bind_param($types, ...$params);
 }
 
@@ -95,6 +107,7 @@ $result = $stmt->get_result();
         </div>
         <div class="nav-center">
             <form class="search-form" method="GET" action="">
+                <!-- htmlspecialchars() convierte caracteres especiales cadenas seguras que el navegador no ejecuta como codigo -->
                 <input type="text" class="form-control" name="search" placeholder="Buscar" value="<?php echo htmlspecialchars($search); ?>">
                 <div class="dropdown">
                     <button class="btn btn-secondary dropdown-toggle" type="button" id="filterDropdown" data-bs-toggle="dropdown" aria-expanded="false">
@@ -138,9 +151,11 @@ $result = $stmt->get_result();
             if ($result->num_rows > 0) {
                 while ($row = $result->fetch_assoc()) {
                     echo '<div class="card">';
+                    // Primero verifica si la el campo de "Imagen" no está vacío, en caso contrario muestra el valor de una imagen default
                     $imagen = htmlspecialchars(!empty($row["Imagen"]) ? $row["Imagen"] : '../../public/imagesUploaded/default.png');
                     echo '<img src="' . $imagen . '">';
                     echo '<h2>' . htmlspecialchars($row["Nombre"]) . '</h2>';
+                    // number_format() muestra el número con dos decimales
                     echo '<p>$' . number_format($row["Precio"], 2) . ' MXN' . '</p>';
                     if ($row["Stock"] > 0) {
                         echo '<a href="../../controllers/cartController.php?producto_id=' . $row["Id_Producto"] . '" class="cart-button">Agregar al carrito</a>';
